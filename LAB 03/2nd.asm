@@ -1,24 +1,36 @@
+; Take two numbers in AL and BL
+; If AL > BL display 'A'
+; If BL > AL display 'B'
+
+
 .model small
 .stack 100h
 .data
-
-;variable declaring
-var1 db 25h
-char1 db 'A'
 
 .code
 
 mov ax, @data
 mov ds, ax
 
+mov al, 05h
+mov bl, 03h
+
+cmp al, bl
+jg display_A
+jl display_B
+
+display_A:
 mov ah, 2
-mov dl, char1
+mov dl, 'A'
+int 21h
+jmp end
+
+display_B:
+mov ah, 2
+mov dl, 'B'
 int 21h
 
-;mov ah, 2
-;mov dl, var1
-;int 21h
-
-mov al, 50h
-add al, var1
+end:
+mov ah, 4CH
 int 21h
+

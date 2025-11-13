@@ -1,22 +1,49 @@
-;Write a program that will
-;take a Lowercase Letter a input
-;from the user
-;and then display the Uppercase Version
-;of the NEXT LETTER       
-
+; Enter a lowercase letter
+; Print the uppercase letter
 
 .model small
-.stack 100h 
+.stack 100h
 .data
+
+sent1 db 'Enter a lowercase letter :$'
+sent2 db 'The uppercase version is : $'
+
 .code
 
-mov ah, 1
-INT 21h
+mov ax, @data
+mov ds, ax
 
-mov ch, al
-sub ch, 20h
-add ch, 01h
+mov ah, 9
+lea dx, sent1
+int 21h 
+
 
 mov ah, 2
-mov dl, ch
-INT 21h
+mov dl, 20h ;Printing space
+int 21h
+
+
+mov ah, 1
+int 21h
+
+mov bl, al
+
+sub bl, 20h
+
+mov ah, 2
+mov dl, 0Ah
+int 21h
+
+mov ah, 2
+mov dl, 0Dh
+int 21h
+
+mov ah, 9
+lea dx, sent2
+int 21h
+
+mov ah, 2
+mov dl, bl
+int 21h
+
+

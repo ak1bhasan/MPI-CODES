@@ -1,56 +1,71 @@
+; Take an input and check if it is Even or Odd
+; If even print Number is Even
+; If Odd print Number is Odd
+
+
 .model small
 .stack 100h
 .data
 
-;variable declaring
-var1 db 25h
-char1 db 'A'
-sentence1 db 'Hello World$'
-sent1 db 'Hello$'
-sent2 db 'World$'
-
+even_msg db 'Number is Even.$'
+odd_msg db 'Number is Odd.$'   
+   
 .code
 
 mov ax, @data
 mov ds, ax
 
-;mov ah, 2
-;mov dl, char1
-;int 21h
+mov ah, 1
+int 21h
 
-;mov ah, 2
-;mov dl, var1
-;int 21h
+sub al, 30h       ; Convert ASCII to numeric value ('0' = 30h)
+                  ; Now AL has the real number (0–9)
 
-;mov al, 50h
-;add al, var1
-;int 21h     
+mov bl, 2         ; Set divisor = 2
+div bl            ; AL / 2 ? AL = quotient, AH = remainder
+                  ; If AH = 0 ? even, else odd
 
-mov ah, 9              ; Function 9: Display string
-lea dx, sentence1      ; Load address of 'Hello World$'
-int 21h                ; Print the string
-                                          
-                                          
+cmp ah, 0
+je even
+jne odd
+
+
+even: 
+
 mov ah, 2
 mov dl, 0Ah
 int 21h
 
-mov dl, 2
+mov ah, 2
+mov dl, 0Dh
+int 21h 
+
+
+mov ah, 9
+lea dx, even_msg
+int 21h
+jmp end
+
+odd:    
+       
+       
+mov ah, 2
+mov dl, 0Ah
+int 21h
+
+mov ah, 2
 mov dl, 0Dh
 int 21h
-                                          
+
+
 mov ah, 9
-lea dx, sent1
+lea dx, odd_msg
+int 21h
+jmp end
+
+
+end:
+mov ah, 4Ch
 int 21h
 
-mov ah, 2              ; Function 2: Display single character
-mov dl, 0Ah            ; Line feed (move cursor to next line)
-int 21h
 
-mov ah, 2              ; Function 2: Display single character
-mov dl, 0Dh            ; Carriage return (move cursor to line start)
-int 21h
-        
-mov ah, 9
-lea dx, sent2
-int 21h

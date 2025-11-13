@@ -1,43 +1,51 @@
 .model small
 .stack 100h
-
 .data
+   
+; My name is
+; Akib   
+   
+;variable declaring
+sent1 db 'My$'
+sent2 db 'name$'
+sent3 db 'is$'
+sent4 db 'Akib$'
 
-.code  
+.code
 
-;Addition
-; Only 0-9
+mov ax, @data
+mov ds, ax
 
-mov ah, 1
-INT 21h
 
-mov cl, al
-
-mov ah, 1
-INT 21h
-mov ch, al
-
-add cl, ch
-sub cl, 30h ; if you subtract by 30h it will give us the decimal value    
+mov ah, 9
+lea dx, sent1
+int 21h
 
 mov ah, 2
-mov dl, cl
-INT 21h
-
-
-; Subtraction
-
-mov ah, 1
+mov dl, 20h ;Will print space
 int 21h
-mov cl, al
 
-mov ah, 1
+mov ah, 9
+lea dx, sent2
 int 21h
-mov ch, al
-
-sub cl, ch
-add cl, 30h
 
 mov ah, 2
-mov dl, cl
+mov dl, 20h
 int 21h
+
+mov ah, 9
+lea dx, sent3
+int 21h
+
+mov ah, 2
+mov dl, 0Ah
+int 21h
+
+mov ah, 2
+mov dl,0Dh
+int 21h
+
+mov ah, 9
+lea dx, sent4
+int 21h       
+       

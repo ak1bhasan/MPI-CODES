@@ -1,33 +1,24 @@
-;Displaying a charcter
- 
-  
 .model small
 .stack 100h
+.data
 
-.data  
+;variable declaring
+var1 db 25h
+char1 db 'A'
 
 .code
 
-
-;mov AH, 2
-;mov DL, '5'
-;INT 21H  
-
-
-
-;mov ah, 2
-;mov dl, 'A'
-;INT 21h
-
-
- 
-;Input a character
-
-mov ah, 1
-INT 21h
-
-;Then displaying that character
+mov ax, @data
+mov ds, ax
 
 mov ah, 2
-mov dl, al
-INT 21h
+mov dl, char1
+int 21h
+
+;mov ah, 2
+;mov dl, var1
+;int 21h
+
+mov al, 50h
+add al, var1
+int 21h
